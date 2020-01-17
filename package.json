@@ -7,7 +7,7 @@
     "main": "dist/font-face-core.js",
     "unpkg": "dist/font-face-core.umd.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "echo \"Error: no test specified\"",
         "build": "microbundle build --no-compress --external none --globals none",
         "release": "npm run build && np --no-yarn --no-cleanup --no-2fa"
     },
