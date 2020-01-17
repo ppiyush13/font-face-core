@@ -1,0 +1,47 @@
+{
+    "name": "@font-face/core",
+    "version": "1.0.0",
+    "description": "",
+    "source": "src/index.js",
+    "module": "dist/font-face-core.esm.js",
+    "main": "dist/font-face-core.cjs.js",
+    "unpkg": "dist/font-face-core.umd.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "microbundle build --no-compress --external none --globals none",
+        "release": "npm run build && np --no-yarn --no-cleanup --no-2fa"
+    },
+    "files": [
+        "dist"
+    ],
+    "author": {
+        "name": "Piyush Lodaya",
+        "email": "ppiyush13@gmail.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ppiyush13/fontface.git"
+    },
+    "bugs": {
+        "url": "https://github.com/ppiyush13/fontface/issues"
+    },
+    "homepage": "https://github.com/ppiyush13/fontface",
+    "keywords": [
+        "font-face",
+        "fontface",
+        "CSS",
+        "@font-face/core",
+        "@font-face",
+        "core"
+    ],
+    "dependencies": {
+        "arrify": "^2.0.1",
+        "is-function": "^1.0.1",
+        "isobject": "^4.0.0"
+    },
+    "devDependencies": {
+        "microbundle": "^0.11.0",
+        "np": "^5.2.1"
+    }
+}
