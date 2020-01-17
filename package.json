@@ -1,6 +1,6 @@
 {
     "name": "@font-face/core",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "source": "src/index.js",
     "module": "dist/font-face-core.esm.js",
