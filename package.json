@@ -4,7 +4,7 @@
     "description": "",
     "source": "src/index.js",
     "module": "dist/font-face-core.esm.js",
-    "main": "dist/font-face-core.cjs.js",
+    "main": "dist/font-face-core.js",
     "unpkg": "dist/font-face-core.umd.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
