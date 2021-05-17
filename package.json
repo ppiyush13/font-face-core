@@ -4,7 +4,7 @@
     "description": "font-face core module",
     "keywords": [
         "font-face",
-        "fontface",
+        "fontFace",
         "CSS",
         "@font-face/core",
         "@font-face",
@@ -32,15 +32,11 @@
         "test": "jest",
         "lint": "prettier --write .",
         "build": "microbundle build --no-compress --external none --globals none --format cjs --no-sourcemap",
-        "release": "npm run build && np --no-yarn --no-cleanup --no-2fa"
     },
     "devDependencies": {
         "@babel/preset-env": "^7.14.2",
-        "is-function": "^1.0.1",
-        "isobject": "^4.0.0",
         "jest": "^26.6.3",
         "microbundle": "^0.13.0",
-        "np": "^5.2.1",
         "prettier": "^2.3.0"
     }
 }

@@ -1,4 +1,4 @@
-import jsonTemplating from './jsonTemplating';
+import { apply } from './json-template';
 
 export default (fontConfig, fileResolver) => {
     const {
@@ -14,86 +14,80 @@ export default (fontConfig, fileResolver) => {
     } = fontConfig;
     const urlTemplate = (name, format) => `url('${name}') format('${format}')`;
 
-    return jsonTemplating({
+    return apply({
         joinChar: ' ',
         tpl: [
-            '@font-face {',
-            `font-family: '${name}';`,
+            { tpl: '@font-face {' },
+            { tpl: `font-family: '${name}';` },
             {
-                condition: weight,
+                enable: weight,
                 tpl: `font-weight: ${weight};`,
             },
             {
-                condition: display,
+                enable: display,
                 tpl: `font-display: ${display};`,
             },
             {
-                condition: stretch,
+                enable: stretch,
                 tpl: `font-stretch: ${stretch};`,
             },
             {
-                condition: style,
+                enable: style,
                 tpl: `font-style: ${style};`,
             },
             {
-                condition: variant,
+                enable: variant,
                 tpl: `font-variant: ${variant};`,
             },
             {
-                condition: unicodeRange,
+                enable: unicodeRange,
                 tpl: `unicode-range: ${unicodeRange};`,
             },
             {
-                condition: featureSettings,
+                enable: featureSettings,
                 tpl: `font-feature-settings: ${featureSettings};`,
             },
             {
-                condition: variationSettings,
+                enable: variationSettings,
                 tpl: `font-variation-settings: ${variationSettings};`,
             },
             {
-                control: 'with',
-                resolve: () => fileResolver('eot'),
+                resolveTplArgs: () => fileResolver('eot'),
                 tpl: (file) => `src: url('${file}');`,
             },
             {
-                control: 'with',
                 tpl: (multipleUrls) => `src: ${multipleUrls};`,
-                resolve: jsonTemplating({
-                    joinChar: ', ',
-                    tpl: [
-                        {
-                            control: 'with',
-                            resolve: () => fileResolver('eot'),
-                            tpl: (file) =>
-                                urlTemplate(
-                                    `${file}#iefix`,
-                                    'embedded-opentype',
-                                ),
-                        },
-                        {
-                            control: 'with',
-                            resolve: () => fileResolver('woff'),
-                            tpl: (file) => urlTemplate(file, 'woff'),
-                        },
-                        {
-                            control: 'with',
-                            resolve: () => fileResolver('woff2'),
-                            tpl: (file) => urlTemplate(file, 'woff2'),
-                        },
-                        {
-                            control: 'with',
-                            resolve: () => fileResolver('ttf'),
-                            tpl: (file) => urlTemplate(file, 'truetype'),
-                        },
-                        {
-                            control: 'with',
-                            resolve: () => fileResolver('svg'),
-                            tpl: (file) =>
-                                urlTemplate(`${file}#${name}`, 'svg'),
-                        },
-                    ],
-                }),
+                resolveTplArgs: () =>
+                    apply({
+                        joinChar: ', ',
+                        tpl: [
+                            {
+                                resolveTplArgs: () => fileResolver('eot'),
+                                tpl: (file) =>
+                                    urlTemplate(
+                                        `${file}#iefix`,
+                                        'embedded-opentype',
+                                    ),
+                            },
+                            {
+                                resolveTplArgs: () => fileResolver('woff'),
+                                tpl: (file) => urlTemplate(file, 'woff'),
+                            },
+                            {
+                                resolveTplArgs: () => fileResolver('woff2'),
+                                tpl: (file) => urlTemplate(file, 'woff2'),
+                            },
+                            {
+                                resolveTplArgs: () => fileResolver('ttf'),
+                                tpl: (file) => urlTemplate(file, 'truetype'),
+                            },
+                            {
+                                resolveTplArgs: () => fileResolver('svg'),
+                                tpl: (file) =>
+                                    urlTemplate(`${file}#${name}`, 'svg'),
+                            },
+                        ],
+                    }),
             },
             {
                 tpl: '}',
