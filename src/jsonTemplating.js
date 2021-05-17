@@ -1,17 +1,14 @@
-import aarify from 'arrify';
-import {arrayJoinMap} from './arrayUtils';
 import isObject from 'isobject';
 import isFunction from 'is-function';
 
 const jsonTemplate = {
     configify(tplConfig) {
-        if(isObject(tplConfig)) {
+        if (isObject(tplConfig)) {
             return tplConfig;
-        }
-        else {
+        } else {
             return {
                 tpl: tplConfig,
-            }
+            };
         }
     },
 
@@ -28,82 +25,83 @@ const jsonTemplate = {
     },
 
     isConditionTruty(tplConfig) {
-        if(isObject(tplConfig)) {
-            const conditionDefined = Object.prototype.hasOwnProperty.call(tplConfig, 'condition');
+        if (isObject(tplConfig)) {
+            const conditionDefined = Object.prototype.hasOwnProperty.call(
+                tplConfig,
+                'condition',
+            );
             return conditionDefined ? tplConfig.condition : true;
-        }
-        else {
-            throw 'Config is not valid. Please report this as a bug.'
+        } else {
+            throw 'Config is not valid. Please report this as a bug.';
         }
     },
 
     parse(tpl, joinChar = '') {
-        return arrayJoinMap(
-            aarify(tpl),
-            tplConfig => {
-                // return if config is null or undefined
-                if(this.isNotValidTplConfig(tplConfig)) return null;
+        const aarify = (sub) => (Array.isArray(sub) ? sub : [sub]);
+        const applyTemplate = (tplConfig) => {
+            // return if config is null or undefined
+            if (this.isNotValidTplConfig(tplConfig)) return null;
 
-                // convert to obj if config is string
-                const tplConfigObj = this.configify(tplConfig);
+            // convert to obj if config is string
+            const tplConfigObj = this.configify(tplConfig);
 
-                const {tpl, joinChar, control} = tplConfigObj;
+            const { tpl, joinChar, control } = tplConfigObj;
 
-                // check if tpl could be included in output
-                if(this.isConditionTruty(tplConfigObj)) {
-                    if(control) {
-                        // if tpl is control, execute control flow
-                        const passingTpl = callMethodOf(this, control.toLowerCase(), [tplConfigObj], () => {
+            // check if tpl could be included in output
+            if (this.isConditionTruty(tplConfigObj)) {
+                if (control) {
+                    // if tpl is control, execute control flow
+                    const passingTpl = callMethodOf(
+                        this,
+                        control.toLowerCase(),
+                        [tplConfigObj],
+                        () => {
                             throw `Provided control '${control}' is not valid`;
-                        });
+                        },
+                    );
 
-                        // parse the passing tpl 
-                        if(passingTpl)
-                            return this.parse(passingTpl, joinChar);
-                    }
-                    else {
-                        return this.isTplParseable(tpl) ? this.parse(tpl, joinChar) : tpl;
-                    }
+                    // parse the passing tpl
+                    if (passingTpl) return this.parse(passingTpl, joinChar);
+                } else {
+                    return this.isTplParseable(tpl)
+                        ? this.parse(tpl, joinChar)
+                        : tpl;
                 }
-            },
-            joinChar,
-            true
-        );
+            }
+        };
+
+        return aarify(tpl).map(applyTemplate).filter(Boolean).join(joinChar);
     },
 
-    if({tpl}) {
-        return aarify(tpl).find(tplConfig => {
-            if(this.isNotValidTplConfig(tplConfig)) return null;
+    if({ tpl }) {
+        return aarify(tpl).find((tplConfig) => {
+            if (this.isNotValidTplConfig(tplConfig)) return null;
             return this.isConditionTruty(this.configify(tplConfig));
         });
     },
 
-    with({tpl, resolve}) {
+    with({ tpl, resolve }) {
         const resolvedValue = isFunction(resolve) ? resolve() : resolve;
         return resolvedValue ? tpl(resolvedValue) : null;
-    }
-}
+    },
+};
 
 const rebind = (obj, method) => {
     return obj[method].bind(obj);
-}
+};
 
 const callMethodOf = (obj, methodName, args, fallBackFn) => {
     const method = obj[methodName];
-    if(method) {
-        return method.apply(obj, args)
+    if (method) {
+        return method.apply(obj, args);
+    } else {
+        if (fallBackFn) return fallBackFn();
     }
-    else {
-        if(fallBackFn)
-            return fallBackFn();
-    }
-}
+};
 
 const returnableLoop = (array, cb) => {
-    const next = function() {
-
-    };
-    for(let i = 0; i < array.length; i++) {
+    const next = function () {};
+    for (let i = 0; i < array.length; i++) {
         const item = array[i];
         cb(next, item, i, array);
     }

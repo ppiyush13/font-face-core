@@ -1,32 +1,7 @@
 {
     "name": "@font-face/core",
     "version": "1.0.1",
-    "description": "",
-    "source": "src/index.js",
-    "module": "dist/font-face-core.esm.js",
-    "main": "dist/font-face-core.js",
-    "unpkg": "dist/font-face-core.umd.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\"",
-        "build": "microbundle build --no-compress --external none --globals none",
-        "release": "npm run build && np --no-yarn --no-cleanup --no-2fa"
-    },
-    "files": [
-        "dist"
-    ],
-    "author": {
-        "name": "Piyush Lodaya",
-        "email": "ppiyush13@gmail.com"
-    },
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ppiyush13/font-face-core.git"
-    },
-    "bugs": {
-        "url": "https://github.com/ppiyush13/font-face-core/issues"
-    },
-    "homepage": "https://github.com/ppiyush13/font-face-core",
+    "description": "font-face core module",
     "keywords": [
         "font-face",
         "fontface",
@@ -35,13 +10,37 @@
         "@font-face",
         "core"
     ],
-    "dependencies": {
-        "arrify": "^2.0.1",
-        "is-function": "^1.0.1",
-        "isobject": "^4.0.0"
+    "homepage": "https://github.com/ppiyush13/font-face-core",
+    "bugs": {
+        "url": "https://github.com/ppiyush13/font-face-core/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ppiyush13/font-face-core.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Piyush Lodaya",
+        "email": "ppiyush13@gmail.com"
+    },
+    "main": "dist/font-face-core.js",
+    "source": "src/index.js",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "test": "jest",
+        "lint": "prettier --write .",
+        "build": "microbundle build --no-compress --external none --globals none --format cjs --no-sourcemap",
+        "release": "npm run build && np --no-yarn --no-cleanup --no-2fa"
     },
     "devDependencies": {
-        "microbundle": "^0.11.0",
-        "np": "^5.2.1"
+        "@babel/preset-env": "^7.14.2",
+        "is-function": "^1.0.1",
+        "isobject": "^4.0.0",
+        "jest": "^26.6.3",
+        "microbundle": "^0.13.0",
+        "np": "^5.2.1",
+        "prettier": "^2.3.0"
     }
 }
