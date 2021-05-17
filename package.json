@@ -31,7 +31,7 @@
     "scripts": {
         "test": "jest",
         "lint": "prettier --write .",
-        "build": "microbundle build --no-compress --external none --globals none --format cjs --no-sourcemap",
+        "build": "microbundle build --no-compress --external none --globals none --format cjs --no-sourcemap"
     },
     "devDependencies": {
         "@babel/preset-env": "^7.14.2",
