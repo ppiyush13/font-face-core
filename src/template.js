@@ -95,7 +95,9 @@ export default (fontConfig, fileResolver) => {
                     ],
                 }),
             },
-            '}',
+            {
+                tpl: '}',
+            },
         ],
     });
 };
