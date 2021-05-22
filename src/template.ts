@@ -1,7 +1,10 @@
 import { apply } from './json-template';
 import { FontConfig } from '.';
 
-export default (fontConfig: FontConfig, fileResolver: (ext: string) => string) => {
+export default (
+    fontConfig: FontConfig,
+    fileResolver: (ext: string) => string,
+) => {
     const {
         name,
         weight,

@@ -3,12 +3,11 @@ module.exports = {
     testEnvironment: 'node',
     coverageReporters: ['html', 'text'],
     testMatch: ['**/src/*.test.ts'],
-    setupFilesAfterEnv: ['<rootDir>/src/setup-tests-after-env.js'],
+    setupFilesAfterEnv: ['<rootDir>/src/setup-tests-after-env.ts'],
     collectCoverageFrom: [
         'src/**/*.{js,ts}',
         '!<rootDir>/node_modules/',
-        '!<rootDir>/src/setup-tests.js',
-        '!<rootDir>/src/test-utils/*',
+        '!<rootDir>/src/setup-tests-after-env.ts',
     ],
     coverageThreshold: {
         global: {
@@ -19,4 +18,3 @@ module.exports = {
         },
     },
 };
-
