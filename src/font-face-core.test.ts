@@ -1,4 +1,4 @@
-import fontFaceCore from '.';
+import fontFaceCore, { FontConfig } from '.';
 
 describe('testing font-face core module', () => {
     it.each([
@@ -8,17 +8,16 @@ describe('testing font-face core module', () => {
             },
             fonts: {
                 name: 'Segoe',
+                file: 'segoe',
                 weight: 400,
                 style: 'italic',
-                file: 'Segoe-italic_400',
                 display: 'swap',
                 stretch: 'condensed',
                 variant: 'small-caps',
                 unicodeRange: 'U+0025-00FF',
                 featureSettings: '"swsh" 2',
                 variationSettings: '"xhgt" 0.7',
-                file: 'segoe',
-            },
+            } as FontConfig,
             expected: `
                 @font-face { 
                     font-family: 'Segoe'; 
@@ -159,15 +158,26 @@ describe('testing font-face core module', () => {
                 }
             `,
         },
-    ])('expect stylesheets to be created', ({ dirMap, fonts, expected }) => {
-        const result = fontFaceCore({
-            directoryContext: {
-                exists: (path) => !!dirMap[path],
-                resolve: (path) => dirMap[path],
-            },
+    ])(
+        'expect stylesheets to be created',
+        ({
+            dirMap,
             fonts,
-        });
+            expected,
+        }: {
+            dirMap: Record<string, string>;
+            fonts: FontConfig | FontConfig[];
+            expected: string;
+        }) => {
+            const result = fontFaceCore({
+                directoryContext: {
+                    exists: (path) => !!dirMap[path],
+                    resolve: (path) => dirMap[path],
+                },
+                fonts,
+            });
 
-        expect(result).toMatch(expected);
-    });
+            expect(result).toMatch(expected);
+        },
+    );
 });

@@ -1,6 +1,7 @@
 import { apply } from './json-template';
+import { FontConfig } from '.';
 
-export default (fontConfig, fileResolver) => {
+export default (fontConfig: FontConfig, fileResolver: (ext: string) => string) => {
     const {
         name,
         weight,
@@ -12,7 +13,8 @@ export default (fontConfig, fileResolver) => {
         featureSettings,
         variationSettings,
     } = fontConfig;
-    const urlTemplate = (name, format) => `url('${name}') format('${format}')`;
+    const urlTemplate = (name: string, format: string) =>
+        `url('${name}') format('${format}')`;
 
     return apply({
         joinChar: ' ',
@@ -71,15 +73,18 @@ export default (fontConfig, fileResolver) => {
                             },
                             {
                                 resolveTplArgs: () => fileResolver('woff'),
-                                tpl: (file) => urlTemplate(file, 'woff'),
+                                tpl: (file: string) =>
+                                    urlTemplate(file, 'woff'),
                             },
                             {
                                 resolveTplArgs: () => fileResolver('woff2'),
-                                tpl: (file) => urlTemplate(file, 'woff2'),
+                                tpl: (file: string) =>
+                                    urlTemplate(file, 'woff2'),
                             },
                             {
                                 resolveTplArgs: () => fileResolver('ttf'),
-                                tpl: (file) => urlTemplate(file, 'truetype'),
+                                tpl: (file: string) =>
+                                    urlTemplate(file, 'truetype'),
                             },
                             {
                                 resolveTplArgs: () => fileResolver('svg'),
