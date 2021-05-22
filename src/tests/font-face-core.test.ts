@@ -1,4 +1,5 @@
-import fontFaceCore, { FontConfig } from '.';
+import { fontFaceCore } from '../font-face-core';
+import { FontFaceConfig } from '../types';
 
 describe('testing font-face core module', () => {
     it.each([
@@ -17,7 +18,7 @@ describe('testing font-face core module', () => {
                 unicodeRange: 'U+0025-00FF',
                 featureSettings: '"swsh" 2',
                 variationSettings: '"xhgt" 0.7',
-            } as FontConfig,
+            } as FontFaceConfig,
             expected: `
                 @font-face { 
                     font-family: 'Segoe'; 
@@ -166,7 +167,7 @@ describe('testing font-face core module', () => {
             expected,
         }: {
             dirMap: Record<string, string>;
-            fonts: FontConfig | FontConfig[];
+            fonts: FontFaceConfig | FontFaceConfig[];
             expected: string;
         }) => {
             const result = fontFaceCore({

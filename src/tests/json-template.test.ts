@@ -1,4 +1,4 @@
-import { apply, Template } from './json-template';
+import { apply, Template } from '../json-template';
 
 describe('testing json-template module', () => {
     it.each([

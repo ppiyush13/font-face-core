@@ -1,8 +1,8 @@
 import { apply } from './json-template';
-import { FontConfig } from '.';
+import { FontFaceConfig } from './types';
 
 export default (
-    fontConfig: FontConfig,
+    fontFaceConfig: FontFaceConfig,
     fileResolver: (ext: string) => string,
 ) => {
     const {
@@ -15,7 +15,7 @@ export default (
         unicodeRange,
         featureSettings,
         variationSettings,
-    } = fontConfig;
+    } = fontFaceConfig;
     const urlTemplate = (name: string, format: string) =>
         `url('${name}') format('${format}')`;
 
