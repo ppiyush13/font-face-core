@@ -1,5 +1,5 @@
 import template from './template';
-import { FontFaceCore } from './types';
+import { FontFaceCore, DirectoryContext, FontFaceConfig } from './types';
 
 export const fontFaceCore = ({ directoryContext, fonts }: FontFaceCore) => {
     const fontConfigList = Array.isArray(fonts) ? fonts : [fonts];
@@ -17,3 +17,5 @@ export const fontFaceCore = ({ directoryContext, fonts }: FontFaceCore) => {
 
     return fontFaceStrList.join('\n');
 };
+
+export { FontFaceCore, DirectoryContext, FontFaceConfig };
