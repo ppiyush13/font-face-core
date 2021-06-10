@@ -4,10 +4,7 @@ module.exports = {
     coverageReporters: ['html', 'text'],
     testMatch: ['**/src/tests/*.test.ts'],
     setupFilesAfterEnv: ['<rootDir>/setup-tests-after-env.ts'],
-    collectCoverageFrom: [
-        'src/**/*.{js,ts}',
-        '!<rootDir>/node_modules/',
-    ],
+    collectCoverageFrom: ['src/**/*.{js,ts}', '!<rootDir>/node_modules/'],
     coverageThreshold: {
         global: {
             lines: 100,

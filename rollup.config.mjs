@@ -1,4 +1,4 @@
-import dts from "rollup-plugin-dts";
+import dts from 'rollup-plugin-dts';
 import pkg from './rollup.load-package-json.cjs';
 
 export default [
@@ -7,11 +7,9 @@ export default [
         output: [
             {
                 file: pkg.types,
-                format: "es",
-            }
+                format: 'es',
+            },
         ],
-        plugins: [
-            dts(),
-        ],
+        plugins: [dts()],
     },
 ];
